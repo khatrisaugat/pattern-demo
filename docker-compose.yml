@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - db_network
+
+  postgres:
+    image: postgres:13
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+volumes:
+  mysql_data:
+  postgres_data:
+
+networks:
+  db_network:
